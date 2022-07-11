@@ -39,7 +39,7 @@
                   <a href="{% url 'tienda' %}" class="nav-item nav-link">Tienda</a>
               </div>
               <div class="navbar-nav ms-auto">
-                <a class="btn btn-danger m-3" href="{% url 'index' %}">Cerrar sesion </a>
+                <a class="btn btn-danger m-3" href="{% url 'logout' %}">Cerrar sesion </a>
                 <a href="{% url 'carro' %}"><i class="fa-solid fa-cart-shopping mt-4"></i></a>
               </div>
           </div>
@@ -56,45 +56,25 @@
     <table class="table table-success table-striped">
       <thead>
         <tr>
+          <th>id</th>
           <th>Nombre</th>
-          <th>Correo</th>
-          <th>Estado Compra</th>
-          <th>Accion</th>
+          <th>Nombre producto</th>
+          <th>Total</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
       <tbody>
+        {% for aux in listaHistorial %}
         <tr class="table-success">
-            <td>Pedro Fernandez</td>
-            <td>p.fernandez@gmail.com</td>
-            <td>Enviado</td>
-            <td><a  class="nav-link btn btn-primary" href="{% url 'seguimiento' %}"  style="color: white;">Ver seguimiento</a></td>
+            <td>{{ aux.id_historial}}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ aux.nombre_historial }}</td>
+            <td>${{ aux.suma }}</td>
+            <td>{{ aux.cantidad_historial }}</td>
+          
             
-            
-          </tr>
-          <tr class="table-success">
-            <td>Pedro Fernandez</td>
-            <td>p.fernandez@gmail.com</td>
-            <td>Entregado</td>
-            <td><a  class="nav-link btn btn-primary" href="#"  style="color: white;">Ver seguimiento</a></td>
-          </tr>
-          <tr class="table-success">
-            <td>Pedro Fernandez</td>
-            <td>p.fernandez@gmail.com</td>
-            <td>Entregado</td>
-            <td><a  class="nav-link btn btn-primary" href="#"  style="color: white;">Ver seguimiento</a></td>
-          </tr>
-          <tr class="table-success">
-            <td>Pedro Fernandez</td>
-            <td>p.fernandez@gmail.com</td>
-            <td>Entregado</td>
-            <td><a  class="nav-link btn btn-primary" href="#"  style="color: white;">Ver seguimiento</a></td>
-          </tr>
-          <tr class="table-success">
-            <td>Pedro Fernandez</td>
-            <td>p.fernandez@gmail.com</td>
-            <td>Entregado</td>
-            <td><a  class="nav-link btn btn-primary" href="#"  style="color: white;">Ver seguimiento</a></td>
-          </tr>
+        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

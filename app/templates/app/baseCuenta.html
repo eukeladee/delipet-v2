@@ -40,12 +40,19 @@
                     <a href="{% url 'cuenta' %}" class="nav-item nav-link">Mi Cuenta</a>
                     <a href="{% url 'fundacion' %}" class="nav-item nav-link">Fundacion</a>
                     <a href="{% url 'tienda' %}" class="nav-item nav-link">Tienda</a>
+                    {% if perms.app.add_usuario %}
                     <a href="{% url 'agregarUsuario' %}" class="nav-item nav-link">Nuevo Usuario</a>
+                    {% endif %}
+                    {% if perms.app.view_usuario %}
                     <a href="{% url 'listarUsuario' %}" class="nav-item nav-link">Lista de Usuarios</a>
+                    {% endif %}
+                    {% if perms.app.view_usuario %}
+                    <a href="{% url 'listarUsuarioApi' %}" class="nav-item nav-link">Lista Api</a>
+                    {% endif %}
                 </div>
                 <div class="navbar-nav ms-auto">
-                  <h3 class="p-3">Bienvenidos </h3>
-                  <a class="btn btn-danger m-3" href="{% url 'index' %}">Cerrar sesion </a>
+                  <h5 class="p-3">Bienvenido {{ user }} </h5>
+                  <a class="btn btn-danger m-3" href="{% url 'logout' %}">Cerrar sesion </a>
                   <a href="{% url 'carro' %}"><i class="fa-solid fa-cart-shopping mt-4"></i></a>
                 </div>
             </div>

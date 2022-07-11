@@ -41,7 +41,7 @@
                   
               </div>
               <div class="navbar-nav ms-auto">
-                <a class="nav-link btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#myModal">Iniciar sesion</a>
+                <a href="{% url 'login' %}" class="nav-item nav-link">Iniciar Sesión</a>
               </div>
           </div>
       </div>
@@ -105,6 +105,7 @@
     <div class="container p-1">
       {% block contenido %}
       {% endblock %}
+      
     </div>
   </div>
 </div>

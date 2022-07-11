@@ -29,8 +29,12 @@
                               <td>{{ aux.comuna }}</td>
                               <td>{{ aux.direccion }}</td>
                               <td> 
+                                {% if perms.app.change_usuario%}
                                 <a href="{% url 'modificarUsuario' aux.rut %}" class="btn btn-primary mt-2">Modificar</a>
+                                {% endif %}
+                                {% if perms.app.delete_usuario%}
                                 <a href="{% url 'eliminarUsuario' aux.rut %}" class="btn btn-danger mt-2">Eliminar</a>
+                                {% endif %}
                               </td>
                           </tr>
                           {% endfor %}

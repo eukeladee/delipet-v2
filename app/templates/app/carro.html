@@ -46,7 +46,7 @@
                         </div>
                         <div class="navbar-nav ms-auto">
 
-                            <a class="btn btn-danger m-3" href="{% url 'index' %}">Cerrar sesion </a>
+                            <a class="btn btn-danger m-3" href="{% url 'logout' %}">Cerrar sesion </a>
 
                         </div>
                     </div>
@@ -66,10 +66,11 @@
                             <div class="colcarrito">
                                 <h4><b>Carro de compras</b></h4>
                             </div>
-                            <div class="col align-self-center text-right text-muted">3 items</div>
+                            <div class="col align-self-center text-right text-muted">Items</div>
                         </div>
                     </div>
                     {% for aux in listaCarrito %}
+                    
                     <div class="row rowcarrito border-top border-bottom">
                         <div class="row rowcarrito maincarrito align-items-center">
                             <div class="col-2 col-2carrito"><img class="img-fluid imgcarrito"
@@ -79,37 +80,46 @@
                                 <div class="row rowcarrito">{{ aux.nombre_producto }}</div>
                             </div>
                             <div class="col colcarrito"> <a class="acarrito" href="#">-</a><a href="#"
-                                    class="border">1</a><a href="#">+</a> </div>
+                                    class="border">{{ aux.cantidad }}</a><a href="#">+</a> </div>
                             <div class="col colcarrito">${{ aux.precio_producto }}<span class="closecarrito">&#10005;</span></div>
+                            Total: ${{ aux.suma }}
+                            {% if perms.app.delete_items_carrito%}
+                            <a href="{% url 'eliminarCarro' aux.id_carro %}" class="btn btn-danger mt-2">Eliminar</a>
+                            {% endif %}
+                            
                         </div>
                     </div>
                     {% endfor %}
                     <div class="back-to-shopcarrito"><a class="acarrito" href="{% url 'tienda' %}">&leftarrow;</a><span
                             class="text-muted">Volver a la tienda</span></div>
                 </div>
+                {% for aux in listaCarrito %}
                 <div class="col-md-4 summarycarrito">
                     <div>
                         <h5 class="h5carrito"><b>Resumen de Compra</b></h5>
                     </div>
                     <hr class="hrcarrito">
-                    <div class="row rowcarrito">
-                        <div class="col colcarrito" style="padding-left:0;">ITEMS 3</div>
-                        <div class="col text-right">&dollar; 24.990</div>
-                    </div>
-                    <form class="formcarrito">
-                        <p>Envio</p> <select class="selectcarrito">
-                            <option class="text-muted">Envio Normal- &dollar;7.000</option>
-                            <option class="text-muted">Envio Flash- &dollar;10.000</option>
-                        </select>
-                        <p>Codigo de descuento</p> <input class="inputcarrito" id="codecarrito"
-                            placeholder="Ingrese el codigo">
-                    </form>
+                    
+                    <form action="" method="POST">
+                    {% csrf_token %}
                     <div class="row rowcarrito" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="form-group hidden">
+                        
+                        
                         <div class="col colcarrito">TOTAL</div>
-                        <div class="col text-right">&dollar; 34.990</div>
-                    </div> <button class="btncarrito">Pagar</button>
+                        <div class="col text-right">${{ aux.suma }}</div>
+                        <input type="hidden" name="nombre_producto" id="nombre_producto" value="{{ aux.nombre_producto }}">
+                        <input type="hidden" name="precio_producto" id="precio_producto" value="{{ aux.precio_producto }}">
+                        <input type="hidden" min="1" name="cantidad" id="cantidad" value="{{ aux.cantidad }}">
+                        <input type="hidden" name="imagen" id="imagen" value="{{ aux.imagen.url }}">
+                        <input type="submit" id="btnEnviar" name="btnEnviar" class="btn btn-success">
+                        </div>
+                    </div> 
+                    </form>
                 </div>
+                {% endfor %}
             </div>
+            
         </div>
     </div>
 
